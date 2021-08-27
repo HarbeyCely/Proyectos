@@ -151,7 +151,7 @@ def calcularAreaPoligono():
             aDI+=areaTrianguloRectangulo(abscisas[i+1]-abscisas[i],detalle)
             contadorTriang+=1
             #print(f"{i} I: {round(aDI,3)}, contador {contadorTriang}, {detalle}")
-    aTotalDetalles = abs(aDD-aDI)
+    aTotalDetalles = aDD-aDI
     aTotal = areaP + aTotalDetalles
 
     print("--------------------------------------------------")
