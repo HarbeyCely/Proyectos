@@ -1,5 +1,5 @@
 library(readxl)
-MatrizP4000 <- read_excel("MatrizP4000.xlsx", 
+MatrizP4000 <- read_excel("Estadística/Clase1-Tablas de frecuencia/MatrizP4000.xlsx", 
                           sheet = "Area")
 View(MatrizP4000)
 
@@ -13,4 +13,4 @@ tipo
 tabla1=fdt_cat(tipo, sort=FALSE)
 tabla1
 
-                                                ##help("fdt_cat")
+                                             ##help("fdt_cat")
