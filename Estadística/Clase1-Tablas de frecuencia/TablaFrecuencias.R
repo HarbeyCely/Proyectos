@@ -1,4 +1,6 @@
-
+library(readxl)
+MatrizP4000 <- read_excel("Estadística/Clase1-Tablas de frecuencia/MatrizP4000.xlsx", 
+                          sheet = "Area")
 View(MatrizP4000)
 
 ## attach sirve para capturar las columnas como variables
