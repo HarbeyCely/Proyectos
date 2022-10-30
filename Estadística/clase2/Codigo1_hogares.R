@@ -1,5 +1,5 @@
 library(readxl)
-hogares <- read_excel("S:/Videos/ing. economica/hogares.xlsx", 
+hogares <- read_excel("Estadística/clase2/hogares.xlsx", 
                       sheet = "AREA")
 
 attach(hogares)
