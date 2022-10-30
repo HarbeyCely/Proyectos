@@ -1,6 +1,6 @@
 library(readr)
-Educacion <- read_delim("S:/Videos/ing. economica/Educacion.csv", 
-                  delim = ";", escape_double = FALSE, trim_ws = TRUE)
+Educacion <- read_delim("Estadística/clase2/Educacion.csv", 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
 
 attach(Educacion)
 names(Educacion)
