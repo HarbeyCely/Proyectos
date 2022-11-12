@@ -11,22 +11,22 @@ limiteSuperior = mean(papa) + sd(papa)  #sd -> standard derivation
 limiteInferior = mean(papa) - sd(papa)   #mean() -> promedio
 nrow(df[ df$papa<4.26, ])
 nrow(df[ df$papa<3.33, ])
-24/30                                   #   (ls - li ) / n
+24/30       # 80%                            #   (ls - li ) / n
 
 limiteSuperior2 = mean(papa) + 2*sd(papa)
 limiteInferior2 = mean(papa) - 2*sd(papa)
 nrow(df[ df$papa<4.72, ])
 nrow(df[ df$papa<2.87, ])
 
-27/30
+27/30      # 90% 
 
 limiteSuperior3 = mean(papa) + 3*sd(papa)
 limiteInferior3 = mean(papa) - 3*sd(papa)
 nrow(df[ df$papa<5.18, ])
 nrow(df[ df$papa<2.41, ])
 
-27/30
-#promdio recortado
+30/30      # 100% 
+#promedio recortado
 mean(papa, trim = 0.05)    # 5 %
 mean(papa, trim = 0.10)    # 10 %
 
@@ -37,7 +37,9 @@ mlv(edad)
 
 
 
-help(crayon)
+
 
 library(crayon)
-cat(yellow$bold("Holi"),magenta$bold("Karo"))
+cat(yellow$bold("crayon"),magenta$bold("text"))
+
+
