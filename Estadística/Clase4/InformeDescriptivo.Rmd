@@ -1,0 +1,54 @@
+---
+title: "Informe de estadistica descriptiva"
+author: "Harbey Cely"
+date: "12/11/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Medidas de tendencia central y dispersión
+### R Markdown
+
+El presente informe evidencia las caracteristicas básicas de las series x, y ,z. Por ejemplo, para calcular un promedio usamos la fórmula $\bar{x}=\sum_{i=1}^n x_i/n$ 
+
+$\star\dagger\star$ <http://rmarkdown.rstudio.com>.
+<https://es.wikipedia.org/wiki/Ayuda:Uso_de_LaTeX>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r}
+str(cars)
+attach(cars)
+names(cars)
+
+# Coeficiente de asimetria
+cv_speed = sd(cars$speed) / mean(cars$speed)
+cv_distance = sd(cars$dist) / mean(cars$dist)  # varia mas la distancia, segun el CV
+cars
+```
+
+
+```{r include=FALSE}
+# No muestra el codigo
+cv_distance
+cv_speed
+```
+```{r echo=FALSE}
+# Coeficiente de asimetria
+cv_speed = sd(cars$speed) / mean(cars$speed)
+cv_distance = sd(cars$dist) / mean(cars$dist)  # varia mas la distancia, segun el CV
+```
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+hist(cars$dist, xlab = "Distancia", ylab = "frecuencia",
+     main = "Histograma de velocidad", col = "gold")
+hist(cars$speed, xlab = "Velocidad", ylab = "frecuencia",
+     main = "Histograma de Distancia", col = "gold")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
