@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 library(car)                              # help("cars")
+=======
+help("cars")
+library(car)
+>>>>>>> 8e7cbf4297e295b5659dc5f5512dab4968329457
 str(cars)
 attach(cars)
 names(cars)
