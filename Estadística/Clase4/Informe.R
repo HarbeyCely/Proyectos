@@ -24,6 +24,3 @@ skewness(cars$speed)
 
 kurtosis(speed)
 kurtosis(dist)
-
-library(crayon)
-cat(yellow$bold("Silvia"),black$bold("Fernanda"))
