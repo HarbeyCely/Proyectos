@@ -1,6 +1,6 @@
 ---
 title: "Informe de estadistica descriptiva"
-author: "Harbey Cely"
+author: "Harbey Emir Cely"
 date: "12/11/2022"
 output: html_document
 ---
@@ -25,7 +25,7 @@ names(cars)
 
 # Coeficiente de asimetria
 cv_speed = sd(cars$speed) / mean(cars$speed)
-cv_distance = sd(cars$dist) / mean(cars$dist)  # varia mas la distancia, segun el CV
+cv_distance = sd(cars$dist) / mean(cars$dist)  # varía mas la distancia, segun el CV
 cars
 ```
 
@@ -46,9 +46,9 @@ You can also embed plots, for example:
 
 ```{r pressure, echo=FALSE}
 hist(cars$dist, xlab = "Distancia", ylab = "frecuencia",
-     main = "Histograma de velocidad", col = "gold")
-hist(cars$speed, xlab = "Velocidad", ylab = "frecuencia",
      main = "Histograma de Distancia", col = "gold")
+hist(cars$speed, xlab = "Velocidad", ylab = "frecuencia",
+     main = "Histograma de Velocidad", col = "cyan")
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
