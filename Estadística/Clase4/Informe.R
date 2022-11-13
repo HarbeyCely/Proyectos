@@ -1,6 +1,4 @@
-help("cars")
-
-library(cars)
+library(car)                              # help("cars")
 str(cars)
 attach(cars)
 names(cars)
@@ -10,9 +8,9 @@ cv_speed = sd(cars$speed) / mean(cars$speed)
 cv_distance = sd(cars$dist) / mean(cars$dist)  # varia mas la distancia, segun el CV
 cars
 hist(cars$dist, xlab = "Distancia", ylab = "frecuencia",
-     main = "Histograma de velocidad", col = "gold")
-hist(cars$speed, xlab = "Velocidad", ylab = "frecuencia",
      main = "Histograma de Distancia", col = "gold")
+hist(cars$speed, xlab = "Velocidad", ylab = "frecuencia",
+     main = "Histograma de Velocidad", col = "cyan")
 
 # Coeficiente de asimettria
 
