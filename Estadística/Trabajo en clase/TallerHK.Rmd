@@ -1,0 +1,82 @@
+---
+title: "ESTADISTICA"
+author: "Karen Velandia-2202124, Harbey Cely-2201128"
+date: "17/11/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Trabajo en clase
+
+En este documento se encontrara el desarrollo de la actividad propuesta por el docente de estadistica aplicada a la ingenieria.
+
+1) Busqueda de datos en la GEIH 2021
+<https://microdatos.dane.gov.co//catalog/701/datafile/F1>
+
+2) Tabla de frecuencias sobre la variable categorica nominal P5020.
+Se usaron las siguientes formulas:
+
+Frecuencia relativa -> $rf=f/ftotal$
+Frecuencia relativa porcentual -> $rf*100$
+
+3) Estadistica descriptiva
+
+
+# Punto 2:
+
+```{r TallerHK}
+library(readr)
+TallerHK <- read_delim("C:/Users/CENTIC/Escritorio/taller/TallerHK.csv", 
+                       delim = ";", escape_double = FALSE, trim_ws = TRUE)
+View(TallerHK)
+attach(TallerHK)
+
+library(fdth)
+TallerHK$P5020=as.factor(TallerHK$P5020)
+
+str(TallerHK$P5020)
+
+tabla=fdt_cat(TallerHK$P5020,sort=FALSE)
+tabla
+# INTERPRETACION
+# Para mayor compresion de la tabla presentada podemos evidenciar que 8660 personas cuentan con inodoro conectado a alcantarillado, 148 personas cuentan con inodoro conectado a pozo septico, 48 cuentan con inodoro sin conexion, 26 no tienen servicio sanitario, 8 tienen banjamar y 2 personas utilizan letrina. Tambien podemos observar la frecuencia relativa en cada uno de estos casos al igual que la frecuencia relativa porcentual y acumulada, esta ultima no tiene interpretacion debido a que es una variable categorica nominal y no ordinal
+
+# Las ecuaciones utilizadas se encuentran en la parte superior
+```
+
+# Punto 3:
+
+```{r pressure}
+library(readr)
+TallerHK <- read_delim("C:/Users/CENTIC/Escritorio/taller/TallerHK.csv", 
+                       delim = ";", escape_double = FALSE, trim_ws = TRUE)
+library(moments)
+              # MEDIDAS DE TENDENCIA CENTRAL
+# Promedio
+promedio = mean(TallerHK$P5140, na.rm=T)
+# Mediana
+median(TallerHK$P5140, na.rm=T)
+
+
+            # MEDIDAS DE TENDENCIA DISPERSION
+# Coeficiente de variacion
+sd(TallerHK$P5140, na.rm=T) / promedio
+# Coeficiente de asimetria
+skewness(TallerHK$P5140, na.rm=T)
+# Coeficiente de curtosis
+kurtosis(TallerHK$P5140, na.rm=T)
+
+# INTERPRETACION
+# El valor promedio que pagan mensualmente por arriendo es $450.000, el coeficiente de variacion, el cual nos permite comparar las dispersiones de dos distribuciones distintas es de 0.69, el coeficiente de asimetria, el cual es una distribucion con respecto a su media es de 5.78 y el coeficiente de curtosis es de 74.927, lo que nos indica el grado de apuntamiento de la distribucion de frecuencia formando una grafica leptocurtica.
+
+
+
+
+```
+
+Link para mayor entendimiento de las graficas
+<https://www.uv.es/ceaces/base/descriptiva/curtosis.htm>
+<https://www.probabilidadyestadistica.net/tipos-de-asimetria/>
