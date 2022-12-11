@@ -1,0 +1,41 @@
+---
+title: "Tablas de frecuencia para variables continuas"
+author: "Harbey Cely"
+date: "19/11/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tablas de frecuencia
+
+Los datos se sacaron de
+<https://www.datos.gov.co/Salud-y-Protecci-n-Social/Costos-de-la-atenci-n-hospitalaria-en-Bucaramanga-/g4vd-w4ip>
+
+```{r, results='hide'}
+accidentes = read.csv("https://www.datos.gov.co/resource/g4vd-w4ip.csv")
+attach(accidentes)
+names(accidentes)
+
+```
+
+Con el codigo anterior se leen los datos.Con el codigo siguiente se crea la tabla de frecuencia.
+
+```{r, warning=FALSE}
+library(fdth)
+tabla1 = fdt(edad, star=1, end=80, h=10)
+tabla1
+
+```
+
+## Grafico de la tabla 1
+
+Tabla 1: edades
+
+```{r }
+plot(tabla1)
+```
+
+
