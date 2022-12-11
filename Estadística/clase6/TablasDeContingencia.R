@@ -18,3 +18,4 @@ CrossTable(cerveza, sexo, prop.c = F, prop.t = F,
 
 CrossTable(cerveza, sexo, prop.r = F, prop.t = F,
            expected = F, prop.chisq = F)  # Contingencia relativa Columna
+
