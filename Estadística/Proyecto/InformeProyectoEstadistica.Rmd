@@ -1,0 +1,319 @@
+---
+title: <center>PROYECTO FINAL
+author: <center>Karen Velandia-2202124 
+        <center>Harbey Cely-2201128
+date: "11/2/2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+En el siguiente informe, se presenta un análisis descriptivo de diferentes datos, los cuales se obtuvieron al realizarle una encuesta a los estudiantes de la facultad de ingenierías fisicomecánicas de la Universidad Industrial de Santander,de igual forma se relacionan variables categóricas y continuas por medio de tablas para finalmente calcular la probabilidad para diferentes eventos.
+
+## Librerias
+```{r warning=F, message=F}
+library(TeachingSampling)
+library(modeest)
+library(moments)
+library(fdth)
+```
+## Lectura de datos
+```{r warning=F, message=F}
+library(readxl)
+df <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT9eHtUFHecxTt_JizLjH20yHtp0dqpUxiZNYe3htgk-b6Vm9daEUzG7q0flP5IcR5CaZsZDtbD9mBc/pub?output=csv", encoding = "UTF-8")
+attach(df)
+```
+## Prueba piloto
+```{r message=FALSE, warning=FALSE}
+# se renombra la variable de promedio
+colnames(df) [c(11)]=c("promedio")
+colnames(df) [c(2)]=c("codigo")
+# semilla
+set.seed(0905)
+# Prueba piloto para 8 datos aleatorios de un total de 11.
+pp=S.SI(11,8)
+df$codigo[pp] # Las 8 personas para la prueba piloto
+piloto=df[pp,]
+v_p=var(piloto$promedio)
+d_p=sd(piloto$promedio)
+desv_deseada=(d_p)/4
+var_deseada=desv_deseada^2
+N=6612
+n=(N*v_p)/((N*var_deseada)+v_p)
+```
+#### Resultados
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+sprintf("Varianza piloto: %f", v_p)
+sprintf("Desviación piloto: %f",d_p)
+sprintf("Desviación deseada: %f",desv_deseada)
+sprintf("Varianza deseada: %f",var_deseada)
+sprintf("Población de estudiantes de la facultad: %d",N)
+sprintf("tamaño de muestra mínima: %d", round(n,0))
+```
+## Muestreo por conglomerado
+```{r warning=F, message=F}
+# Aleatorizacion con MAS (Muestreo probabílistico)
+set.seed(90)
+# Para carrera:
+
+# 1 -> Ingeniería civíl
+# 2 -> Diseño
+# 3 -> E3T
+# 4 -> Ingeniería industrial
+# 5 -> Ingeniería mecánica
+# 6 -> Ingeniería de sistemas
+a=sample(1:6,1)
+if (a==3){
+  print("1 -> electrica")
+  print("2 -> electronica")
+  sample(1:2,1)
+}
+# Para semestre:
+b=sample(1:10,1)
+# Para asignatura:
+c=sample(1:3,1)
+# Para grupo:
+d=sample(1:5,1)
+```
+### Ejemplo
+```{r warning=F, message=F, echo=F}
+sprintf("Carrera %d: Ingeniería industrial",a)
+sprintf("Semestre %d",b)
+sprintf("Asignatura %d: 28997-Estructuras computacionales",c)
+sprintf("Grupo %d: Grupo D1 Lunes 10:00-12:00",d)
+```
+## Estadistica descriptiva para cada variable
+Utilizando todos los datos.
+
+### Edad (Numérica)
+```{r warning=F, message=F, echo=F}
+#                  EDAD
+# Tendencia central
+sprintf("Promedio: %d", round(mean(df$Edad),0))
+# Medidas de dispersión
+sprintf("Desviación: %f", sd(df$Edad))
+sprintf("Varianza: %f", var(df$Edad))
+limSup = mean(df$Edad) + sd(df$Edad)
+limInf = mean(df$Edad) - sd(df$Edad)
+rango = limSup-limInf
+sprintf("Rango: %f", rango)
+# Medidas de distrubución
+sprintf("Coeficiente de variación: %f", sd(df$Edad)/mean(df$Edad))
+sprintf("Coeficiente de asimetría: %f", skewness(df$Edad))
+sprintf("Coeficiente de curtosis: %f", kurtosis(df$Edad))
+
+hist(df$Edad, xlab = "Edades", ylab = "frecuencia",
+     main = "Histograma de Edad", col = "orange")
+```
+
+### Sexo (categórica)
+```{r warning=F, message=F, echo=F}
+#                  SEXO
+# Tendencia central
+sprintf("Moda: %s", mfv(df$Sexo))
+# Tabla de frecuencias
+TablaSexo=fdt_cat(df$Sexo,sort=FALSE)
+print("Tabla de frecuencias de Hombre y Mujer en la muestra")
+TablaSexo
+```
+
+### Carrera (categórica)
+```{r warning=F, message=F, echo=F}
+#                  CARRERA
+# Tendencia central
+colnames(df) [c(5)]=c("Carrera")
+sprintf("Moda: %s", mfv(df$Carrera))
+# Tabla de frecuencias
+TablaCarrera=fdt_cat(df$Carrera,sort = F)
+print("Tabla de frecuencias de los programas académicos ")
+TablaCarrera
+```
+
+### Estudio Independiente (Numérica)
+```{r warning=F, message=F, echo=F}
+#             ESTUDIO INDEPENDIENTE
+# Tendencia central
+colnames(df) [c(6)]=c("EstudioIndependiente")
+sprintf("Promedio: %d", round(mean(df$EstudioIndependiente), 0))
+# Medidas de dispersión
+sprintf("Desviación: %f", sd(df$EstudioIndependiente))
+sprintf("Varianza: %f", var(df$EstudioIndependiente))
+limSup = mean(df$EstudioIndependiente) + sd(df$EstudioIndependiente)
+limInf = mean(df$EstudioIndependiente) - sd(df$EstudioIndependiente)
+rango = limSup-limInf
+sprintf("Rango: %f", rango)
+# Medidas de distrubución
+sprintf("Coeficiente de variación: %f", sd(df$EstudioIndependiente)/mean(df$EstudioIndependiente))
+sprintf("Coeficiente de asimetría: %f", skewness(df$EstudioIndependiente))
+sprintf("Coeficiente de curtosis: %f", kurtosis(df$EstudioIndependiente))
+hist(df$EstudioIndependiente, xlab = "Horas", ylab = "frecuencia",
+     main = "Histograma de Horas de estudio independiente", col = "cyan")
+```
+
+### Dispositivos electrónicos (categórica)
+```{r warning=F, message=F, echo=F}
+#                  Dispositivos electrónicos
+# Tendencia central
+colnames(df) [c(7)]=c("Dispositivos")
+sprintf("Moda: %s", mfv(df$Dispositivos))
+# Tabla de frecuencias
+TablaDispositivos=fdt_cat(df$Dispositivos,sort = T)
+print("Tabla de frecuencias de dispositivos indispensables para estudiar")
+TablaDispositivos
+```
+
+### Grado de importancia de los medios digitales (categórica)
+```{r warning=F, message=F, echo=F}
+#             IMPORTANCIA DE LOS MEDIOS DIGITALES
+# Tendencia central
+colnames(df) [c(8)]=c("MediosDigitales")
+sprintf("Moda: %s: mucha importancia", mfv(df$MediosDigitales))
+# Tabla de frecuencias
+md=as.factor(df$MediosDigitales)
+TablaMediosDigitales=fdt_cat(md,sort = T)
+print("Tabla de frecuencias del grado de importancia de los medios digitales para estudiar")
+TablaMediosDigitales
+```
+
+
+```{r warning=F, message=F, echo=F}
+#                  HORAS DE SUEÑO
+# Tendencia central
+colnames(df) [c(9)]=c("Sueño")
+sprintf("Promedio: %d", round(mean(df$Sueño), 0))
+# Medidas de dispersión
+sprintf("Desviación: %f", sd(df$Sueño))
+sprintf("Varianza: %f", var(df$Sueño))
+limSup = mean(df$Sueño) + sd(df$Sueño)
+limInf = mean(df$Sueño) - sd(df$Sueño)
+rango = limSup-limInf
+sprintf("Rango: %f", rango)
+# Medidas de distrubución
+sprintf("Coeficiente de variación: %f", sd(df$Sueño)/mean(df$Sueño))
+sprintf("Coeficiente de asimetría: %f", skewness(df$Sueño))
+sprintf("Coeficiente de curtosis: %f", kurtosis(df$Sueño))
+hist(df$Sueño, xlab = "Horas de sueño", ylab = "frecuencia",
+     main = "Histograma de horas de sueño promedio", col = "purple")
+```
+
+### Horas dedicadas a redes sociales (Numérica)
+```{r warning=F, message=F, echo=F}
+#                  HORAS DE DISTRACCION
+# Tendencia central
+colnames(df) [c(10)]=c("Distracción")
+sprintf("Mediana: %d", median(df$Distracción))
+# Medidas de dispersion
+sprintf("Desviacion: %f", sd(df$Distracción))
+sprintf("Varianza: %f", var(df$Distracción))
+limSup = mean(df$Distracción) + sd(df$Distracción)
+limInf = mean(df$Distracción) - sd(df$Distracción)
+rango = limSup-limInf
+sprintf("Rango: %f", rango)
+# Medidas de distrubucion
+sprintf("Coeficiente de variación: %f", sd(df$Distracción)/mean(df$Distracción))
+sprintf("Coeficiente de asimetría: %f", skewness(df$Distracción))
+sprintf("Coeficiente de curtosis: %f", kurtosis(df$Distracción))
+hist(df$Distracción, xlab = "Horas de distracción", ylab = "frecuencia",
+     main = "Frecuencias de actividades diferentes al estudio", col = "red")
+```
+
+### Promedio ponderado acumulado (Numérica)
+```{r warning=F, message=F, echo=F}
+#                  PROMEDIO PONDERADO ACUMULADO
+# Tendencia central
+sprintf("Promedio: %d", round(mean(df$promedio), 0))
+# Medidas de dispersion
+sprintf("Desviación: %f", sd(df$promedio))
+sprintf("Varianza: %f", var(df$promedio))
+limSup = mean(df$promedio) + sd(df$promedio)
+limInf = mean(df$promedio) - sd(df$promedio)
+rango = limSup-limInf
+sprintf("Rango: %f", rango)
+# Medidas de distrubuciOn
+sprintf("Coeficiente de variación: %f", sd(df$promedio)/mean(df$promedio))
+sprintf("Coeficiente de asimetría: %f", skewness(df$promedio))
+sprintf("Coeficiente de curtosis: %f", kurtosis(df$promedio))
+hist(df$promedio, xlab = "promedio", ylab = "frecuencia",
+     main = "Promedio Ponderado Acumulado", col = "yellow")
+```
+
+### Algo afecta el rendimiento? (categórica)
+```{r warning=F, message=F, echo=F}
+#             ALGÚN FACTOR AFECTA O NO EL RENDIMIENTO
+# Tendencia central
+colnames(df) [c(12)]=c("Rendimiento")
+sprintf("Moda: %s", mfv(df$Rendimiento))
+# Tabla de frecuencias
+md=as.factor(df$Rendimiento)
+TablaRendimiento=fdt_cat(md,sort = T)
+print("Tabla de frecuencias de Sí o No")
+TablaRendimiento
+```
+
+### Factores que afectan el rendimiento (categórica)
+```{r warning=F, message=F, echo=F}
+#             FACTOR QUE AFECTE EL RENDIMIENTO
+# Tendencia central
+colnames(df) [c(13)]=c("Factores")
+print("Moda: Otro")
+# Tabla de frecuencias
+md=as.factor(df$Factores)
+TablaFactores=fdt_cat(md,sort = T)
+print("Tabla de frecuencias de factores que afectan el rendimiento")
+TablaFactores
+```
+
+
+### Tabla de contingencia entre Sexo y Carrera
+```{r warning=F, message=F, echo=F}
+# Cruce de las variables Sexo y Carrera (categorica vs categorica)
+library(gmodels)
+
+CrossTable(df$Sexo, df$Carrera, prop.r = T, prop.t = F,prop.c = F,
+           expected = F, prop.chisq = F, format = "SPSS", dnn = c("Sexo","Carrera"), max.width = 1)
+
+
+```
+
+### Tabla de contingencia entre Carrera y Dispositivos
+```{r warning=F, message=F, echo=F}
+# Cruce de las variables Carrera y Dispositivos (categorica vs categorica)
+colnames(df) [c(7)]=c("Dispositivos")
+CrossTable(df$Carrera, df$Dispositivos, prop.r = T, prop.t = F,prop.c = F,
+           expected = F, prop.chisq = F, format = "SPSS", dnn = c("Carrera","Dispositivos"), max.width = 1) # Fila
+```
+
+### Tabla cruzada entre Carrera y Promedio
+```{r warning=F, message=F, echo=F}
+# Cruce de las variables Carrera y Promedio (categorica vs Continua)
+library(crosstable)
+crosstable(df, c(Carrera, promedio), by=Carrera) %>%
+  as_flextable(keep_id=TRUE)
+```
+
+## Probabilidades
+¿Qué probabilidad hay de que haya una persona que duerma menos de 4 horas y tenga el promedio por encima de 4.0?
+```{r warning=F, message=F}
+library(gtools)
+A=
+( nrow(combinations(3,1))*1) / nrow(combinations(49,1))*
+( nrow(combinations(13,1)*1)) / nrow(combinations(49,1))
+sprintf("Probabilidad: %f = %f%%", A, A*100)
+```
+
+¿Qué probabilidad hay de que haya una mujer perteneciente a ingeniería mecánica que le dedique a lo menos 20 horas a su trabajo independiente?
+```{r warning=F, message=F}
+library(gtools)
+B=
+( nrow(combinations(16,1))*1 ) / nrow(combinations(49,1))* 
+( nrow(combinations(13,1))*1 ) / nrow(combinations(49,1))* 
+( nrow(combinations(17,1))*1 ) / nrow(combinations(49,1))
+sprintf("Probabilidad: %f = %f%%", B, B*100)                                            
+```
+
+## SUSTENTACION DEL PROYECTO EN YOUTUBE
+<https://youtu.be/imm8CEgJn98>
+
+
