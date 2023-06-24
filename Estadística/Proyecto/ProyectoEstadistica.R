@@ -1,3 +1,4 @@
+# Harbey Cely - Karen Velandia
 # Librerias
 library(TeachingSampling)
 library(modeest)
